@@ -1,0 +1,51 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/ddp.GitHubPages
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x      
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Publish Blazor WASM
+      run: dotnet publish ddp.GitHubPages.Web/ddp.GitHubPages.Web.csproj -c Release -o release --nologo
+      
+    # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to BlazorGitHubPagesDemo
+      run: sed -i 's/<base href="\/" \/>/<base href="https:\/\/ddpruitt.github.io\/" \/>/g' release/wwwroot/index.html
+      
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
+
+    # add .gitattributes to prevent github from change line endings in files as this screws up hash value.
+    - name: Add .gitattributes file
+      run: echo '* binary' > .gitattributes
+      
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4.4.0
+      with:
+        token: ${{ github.token }}
+        # This is the branch you wish to deploy to, for example gh-pages or docs.
+        branch: gh-pages
+        # The folder in your repository that you want to deploy. If your build script compiles into a directory named build you would put it here. Folder paths cannot have a leading / or ./. If you wish to deploy the root directory you can place a . here.
+        folder: src/ddp.GitHubPages/release/wwwroot
