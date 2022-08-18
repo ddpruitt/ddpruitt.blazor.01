@@ -29,8 +29,8 @@ jobs:
     - name: Publish Blazor WASM
       run: dotnet publish ddp.GitHubPages.Web/ddp.GitHubPages.Web.csproj -c Release -o release --nologo
       
-    # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
-    - name: Change base-tag in index.html from / to BlazorGitHubPagesDemo
+    # changes the base-tag in index.html from '/' to 'ddpruitt.github.io' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to ddpruitt.github.io
       run: sed -i 's/<base href="\/" \/>/<base href="https:\/\/ddpruitt.github.io\/" \/>/g' release/wwwroot/index.html
       
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
