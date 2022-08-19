@@ -1,0 +1,70 @@
+﻿@page "/publicapis"
+@inject HttpClient Http
+
+<PageTitle>Public API's'</PageTitle>
+
+<h3>Public API's'</h3>
+@if (_root == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h4 class="h4">Count: @_root.count.ToString("#,##0")</h4>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>API</th>
+            <th>Description</th>
+            <th>Auth</th>
+            <th>HTTPS</th>
+            <th>Cors</th>
+            <th>Link</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var entry in _root.entries)
+        {
+            <tr>
+                    <td>@entry.API</td>
+                    <td>@entry.Description</td>
+                    <td>@entry.Auth</td>
+                    <td>@entry.HTTPS</td>
+                    <td>@entry.Cors</td>
+                    <td><a href="@entry.Link" target="_blank">@entry.Link</a></td>
+                    <td>@entry.Category</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@code {
+    private Root? _root;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        _root = await Http.GetFromJsonAsync<Root>("https://api.publicapis.org/entries");
+        await base.OnInitializedAsync();
+    }
+
+    public class Entry
+    {
+        public string API { get; set; }
+        public string Description { get; set; }
+        public string Auth { get; set; }
+        public bool HTTPS { get; set; }
+        public string Cors { get; set; }
+        public string Link { get; set; }
+        public string Category { get; set; }
+    }
+
+    public class Root
+    {
+        public int count { get; set; }
+        public List<Entry> entries { get; set; }
+    }
+
+}
