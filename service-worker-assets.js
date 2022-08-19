@@ -33,15 +33,15 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-w1YeP1UUTtp7v1D\/1ErPcBAQWvbDcN0ystRMq9cPdw8=",
+      "hash": "sha256-MSi2lDBa+5gL01zkuOY4TENLLGMgfUiOVt4xXdqSPvQ=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-7cdfjJ9m4lVq5Ibn66slAXPTyGqBjM07qP791nnWS1w=",
+      "hash": "sha256-a+uWVLnvsW+Y9lbShy5G+giazZQdexWOKM82I9YbJRg=",
       "url": "_framework\/ddp.GitHubPages.Web.dll"
     },
     {
-      "hash": "sha256-NQZcGRvyo356M3N3ZAnNXL45ERuCeMAormncL\/oE16c=",
+      "hash": "sha256-Qf\/TVtTf7Qj6g4Kr8bfEomC5sUsjmh6a6aO0UvWshss=",
       "url": "_framework\/Microsoft.AspNetCore.Components.dll"
     },
     {
@@ -141,7 +141,7 @@
       "url": "_framework\/System.Runtime.CompilerServices.Unsafe.dll"
     },
     {
-      "hash": "sha256-wjAOcadSSWI4Cnvm07m5s9NLlsMvcmvbV3cp0kYi7yg=",
+      "hash": "sha256-AoTYjqm8JL3OKflAq41hHm7neypH\/MRKNH662hAnQF0=",
       "url": "_framework\/System.Runtime.dll"
     },
     {
@@ -229,5 +229,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "ggD8PkwC"
+  "version": "m17oh7k2"
 };

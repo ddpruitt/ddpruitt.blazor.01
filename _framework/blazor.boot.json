@@ -7,8 +7,8 @@
   "linkerEnabled": true,
   "resources": {
     "assembly": {
-      "ddp.GitHubPages.Web.dll": "sha256-7cdfjJ9m4lVq5Ibn66slAXPTyGqBjM07qP791nnWS1w=",
-      "Microsoft.AspNetCore.Components.dll": "sha256-NQZcGRvyo356M3N3ZAnNXL45ERuCeMAormncL\/oE16c=",
+      "ddp.GitHubPages.Web.dll": "sha256-a+uWVLnvsW+Y9lbShy5G+giazZQdexWOKM82I9YbJRg=",
+      "Microsoft.AspNetCore.Components.dll": "sha256-Qf\/TVtTf7Qj6g4Kr8bfEomC5sUsjmh6a6aO0UvWshss=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-bxsed\/f9HGk8R07pPYy+tQtareorErblCp0tHBblkrE=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-GYLOrHTUilnmo\/diG\/ALfbWMvuvOGZ9MINsKLWtPjFc=",
       "Microsoft.Extensions.Configuration.Abstractions.dll": "sha256-zhFtW4kE16TdrpPne9I1Cu9o0KYzrS50VE9MVSifJg4=",
@@ -33,7 +33,7 @@
       "System.Private.Runtime.InteropServices.JavaScript.dll": "sha256-Tjpaise0TkDrv13BM0rRyVpImvGGQXNqiuRHBW\/XzKE=",
       "System.Private.Uri.dll": "sha256-w50rcAvcA+zY+7SnidHiVMQcjS2AM8mAaoXI1GXfd9o=",
       "System.Runtime.CompilerServices.Unsafe.dll": "sha256-cQEZqPkNrd7HTrrx23l85M\/huEj+FOsWEcU3UTPcjxg=",
-      "System.Runtime.dll": "sha256-wjAOcadSSWI4Cnvm07m5s9NLlsMvcmvbV3cp0kYi7yg=",
+      "System.Runtime.dll": "sha256-AoTYjqm8JL3OKflAq41hHm7neypH\/MRKNH662hAnQF0=",
       "System.Text.Encodings.Web.dll": "sha256-YDdw97yEeGERivHPm7zTAX9p\/X\/guaJ8M7gADPmnXBw=",
       "System.Text.Json.dll": "sha256-4snuAs8OT4MX\/x3tQkW+ZFv4iP\/MznhEZ5uDx\/mBrg8="
     },
