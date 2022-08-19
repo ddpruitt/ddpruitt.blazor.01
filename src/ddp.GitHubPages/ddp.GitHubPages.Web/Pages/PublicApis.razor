@@ -3,54 +3,115 @@
 
 <PageTitle>Public API's'</PageTitle>
 
-<h3>Public API's'</h3>
-@if (_root == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <h4 class="h4">Count: @_root.count.ToString("#,##0")</h4>
+<h3>Public API for Public APIs</h3>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>API</th>
-            <th>Description</th>
-            <th>Auth</th>
-            <th>HTTPS</th>
-            <th>Cors</th>
-            <th>Link</th>
-            <th>Category</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var entry in _root.entries)
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+        @if (_categoryRoot != null)
         {
-            <tr>
-                    <td>@entry.API</td>
-                    <td>@entry.Description</td>
-                    <td>@entry.Auth</td>
-                    <td>@entry.HTTPS</td>
-                    <td>@entry.Cors</td>
-                    <td><a href="@entry.Link" target="_blank">@entry.Link</a></td>
-                    <td>@entry.Category</td>
-            </tr>
+            <select id="SearchCategoryId" name="categoryId" @onchange="CategoryChanged" class="form-select">
+                <option>Select Category</option>
+                <option value="All">-- All --</option>
+                @foreach (var category in _categoryRoot.categories)
+                {
+                    <option value="@category">@category</option>
+                }
+            </select>
         }
-        </tbody>
-    </table>
-}
+        </div>
+        <div class="col-10"><a href="https://github.com/davemachado/public-api">Github Project</a></div>
+    </div>
+
+    
+    @if (_entryRoot == null)
+    {
+        <div class="row">
+            <div class="alert alert-primary" role="alert">
+                Loading Entries...
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>API</th>
+                    <th>Description</th>
+                    <th>Auth</th>
+                    <th>HTTPS</th>
+                    <th>Cors</th>
+                    <th>Link</th>
+                    <th>Category</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var entry in _entryRoot.entries)
+                {
+                    <tr>
+                        <td>@entry.API</td>
+                        <td>@entry.Description</td>
+                        <td>@entry.Auth</td>
+                        <td>@entry.HTTPS</td>
+                        <td>@entry.Cors</td>
+                        <td><a href="@entry.Link" target="_blank">@entry.Link</a></td>
+                        <td>@entry.Category</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            </div>
+        <div class="row">
+            <h4 class="h4">Count: @_entryRoot.count.ToString("#,##0")</h4>
+        </div>
+    }
+    
+</div>
+
 @code {
-    private Root? _root;
+    private EntryRoot? _entryRoot;
+    private CategoryRoot? _categoryRoot;
 
 
     protected override async Task OnInitializedAsync()
     {
-        _root = await Http.GetFromJsonAsync<Root>("https://api.publicapis.org/entries");
+        await LoadEntries();
+        await LoadCategories();
         await base.OnInitializedAsync();
     }
 
-    public class Entry
+    protected async Task LoadEntries(string? category = "")
+    {
+        EntryRoot? entryRoot;
+
+        if (string.IsNullOrWhiteSpace(category))
+        {
+            entryRoot = new EntryRoot();
+        }
+        else if (category.Equals("All", StringComparison.InvariantCultureIgnoreCase))
+        {
+            entryRoot = await Http.GetFromJsonAsync<EntryRoot>("https://api.publicapis.org/entries");
+        }
+        else
+        {
+            entryRoot = await Http.GetFromJsonAsync<EntryRoot>($"https://api.publicapis.org/entries?category={category}");
+        }
+
+        entryRoot ??= new EntryRoot();
+
+        entryRoot.entries ??= new List<Entry>();
+
+        _entryRoot = entryRoot;
+    }
+
+    protected async Task LoadCategories()
+    {
+        _categoryRoot = await Http.GetFromJsonAsync<CategoryRoot>("https://api.publicapis.org/categories");
+    }
+
+    protected class Entry
     {
         public string API { get; set; }
         public string Description { get; set; }
@@ -61,10 +122,22 @@ else
         public string Category { get; set; }
     }
 
-    public class Root
+    protected class EntryRoot
     {
         public int count { get; set; }
         public List<Entry> entries { get; set; }
+    }
+
+    protected class CategoryRoot
+    {
+        public int count { get; set; }
+        public List<string> categories { get; set; }
+    }
+
+    private async Task CategoryChanged(ChangeEventArgs arg)
+    {
+        var selectedCat = arg.Value?.ToString();
+        await LoadEntries(selectedCat);
     }
 
 }
